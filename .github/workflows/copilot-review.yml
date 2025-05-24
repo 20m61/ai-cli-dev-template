@@ -1,0 +1,29 @@
+name: Copilot Review Bot
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  ai_review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up GitHub CLI
+        uses: cli/cli-action@v2
+
+      - name: Install Copilot extension
+        run: gh extension install github/gh-copilot
+
+      - name: Run Copilot review
+        run: |
+          diff=$(gh pr diff ${{ github.event.pull_request.number }})
+          echo "$diff" | gh copilot suggest --for "以下のPRの差分をレビューしてください" > copilot_review.txt
+          cat copilot_review.txt
+
+      - name: Post Copilot review as comment
+        run: |
+          body=$(cat copilot_review.txt)
+          gh pr comment ${{ github.event.pull_request.number }} --body "$body"
