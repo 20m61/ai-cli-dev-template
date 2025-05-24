@@ -1,77 +1,118 @@
+うんうん、ここでREADMEをテンプレートとして配布可能な状態に仕上げちゃおう〜！
+今までの進捗を全部盛り込んで、「これは使える！」って思ってもらえる内容にしようね！
+
+⸻
+
+【最終版】README.md テンプレート（完成系）
+
 # AI CLI Dev Template
 
-**GitHub Copilot Pro+ と GitHub CLI を最大限に活用する、AI駆動型CLI開発テンプレート**です。  
-開発者が“考える”ことに集中できるよう、Issue作成・コード生成・レビューまでをAIとghコマンドで連携し、スムーズな開発体験を実現します！
+> GitHub Copilot × GitHub CLI による**AI駆動CLI開発テンプレート**  
+> スクリプト1発で、Issue作成・PR作成・コードレビューまでぜんぶAIと連携！
 
 ---
 
 ## ✨ 特徴
 
-- `gh` × `Copilot Pro+` による**開発自動化ワークフロー**
-- `gh-copilot` 拡張を利用した**自然言語での操作**
-- AIが読める＆書ける**親しみやすいドキュメント構造**
-- スクリプトによる**Issue→ブランチ→PRの自動化**
+- `gh copilot` を活用した自然言語開発フロー
+- gh CLIスクリプトでの一貫したIssue→PR→レビュー体験
+- 自動レビュー付きGitHub Actions
+- Copilotに優しいドキュメント構造付き
+- “誰が使うか”に寄り添ったテンプレート設計
 
 ---
 
-## ⚙ セットアップ
+## 🚀 セットアップ
 
-### 必要なツール
+### 必要環境
 
-- [Node.js](https://nodejs.org/)（v18+推奨）
-- [GitHub CLI](https://cli.github.com/)
-- [GitHub Copilot Pro/Plus](https://github.com/features/copilot)
-- `gh`のログイン済みであること（`gh auth login`）
+- Node.js v18+
+- GitHub CLI (`gh`)
+- GitHub Copilot Pro or Plus プラン
 
-### `gh-copilot` のインストール
+### インストール手順
 
 ```bash
+# gh CLI インストール
+https://cli.github.com/
+
+# Copilot拡張のインストール
 gh extension install github/gh-copilot
 
-# 確認コマンド
-
-gh copilot suggest --for "pwd"
-```
 
 ⸻
 
-🔄 ワークフロー例（AI駆動開発）
-	1.	Copilotに相談しながらIssueを書く
-	2.	スクリプトでブランチを自動生成
-	3.	Copilot Chatやエージェントで実装補助
-	4.	ghコマンドでPR作成＆レビュー
-	5.	Copilotによるコード要約・改善提案
+⚙ 使い方
+
+Issueを作成（AI提案付き）
+
+./gh-scripts/create-issue.sh
+
+	1.	タイトルを入力
+	2.	Copilotが説明文を提案
+	3.	gh issue create でGitHubに登録！
 
 ⸻
 
-📁 ディレクトリ構成（予定）
+PRを作成（AIによる説明文付き）
 
-gh-scripts/         # Copilot連携スクリプト
-docs/               # ドキュメント各種（structure, use-casesなど）
-.github/            # ISSUE_TEMPLATEやworkflow定義
-README.md           # ← これ
+./gh-scripts/create-pr.sh
+
+	1.	タイトルを入力
+	2.	コミット履歴からCopilotが本文生成
+	3.	gh pr createでPR作成！
+
+⸻
+
+変更差分をAIにレビューさせる
+
+./gh-scripts/copilot-review.sh
+
+→ 差分を要約・改善点を提案してくれる！
+
+⸻
+
+自動レビュー（GitHub Actions）
+
+PRを作成すると、Copilotが自動でレビューをコメントしてくれる！
+設定ファイルは .github/workflows/copilot-review.yml にあります。
+
+⸻
+
+📂 ディレクトリ構成
+
+ディレクトリ / ファイル	説明
+gh-scripts/	AI連携CLIスクリプト群（Issue/PR/レビュー）
+.github/workflows/	Copilot自動レビューのGitHub Actions
+docs/structure.md	ファイル構成ガイド
+docs/use-cases.md	ユースケース事例
+docs/personas.md	想定ユーザー像
+docs/faq.md	よくある質問とトラブル対応
 
 
 ⸻
 
-🛠 付属スクリプト（予定）
-
-ファイル名	役割
-create-issue.sh	gh + Copilotで自然言語からIssue作成
-create-pr.sh	ghでPR作成＋説明をCopilotが補助
-copilot-review.sh	PRの差分をCopilotが要約＆レビュー
-
+👥 想定ユーザー（Personas）
+	•	ゆきちゃん：Copilotと一緒に楽しく開発したいフロントエンドエンジニア
+	•	みなとくん：CLI開発の勉強がしたい大学生
+	•	changさん：AIを活かして世界観ある開発をしたい魔法系エンジニア！
 
 ⸻
 
-☁️ 今後の拡張案
-	•	GitHub ActionsとのAI連携（自動レビューやPRラベル付け）
-	•	Workspace連動によるタスク駆動開発の実現
-	•	他プロジェクトへのテンプレート導入サポート
+🧠 AIへの指示例（プロンプト）
+
+「docs/use-cases.mdを参考に、新しいフローを作って」
+「みなとくん向けにCLIのUX改善を提案して」
+「変更内容をCopilotくんに要約させて！」
 
 ⸻
 
-🧙‍♀️ 誰におすすめ？
-	•	Copilotをもっと便利に使いたい人
-	•	CLIからAIと会話して開発したい人
-	•	プロダクト志向で効率よく開発したいあなた！
+📌 ライセンス
+
+MIT
+
+⸻
+
+🪄 開発・運用：@20m61
+
+Pull Request / Issue 大歓迎です！
